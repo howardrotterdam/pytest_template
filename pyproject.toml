@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-showcase"
+version = "0.1.0"
+description = "A project demonstrating various pytest features."
+readme = "README.md"
+requires-python = ">=3.8"
+# Add other project metadata as needed
+
+dependencies = [
+    # Add runtime dependencies here if any
+    "requests>=2.20"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-mock>=3.0", # For mocker fixture
+    "pytest-cov>=3.0",  # For coverage
+]
+
+# pytest configuration within pyproject.toml
+[tool.pytest.ini_options]
+minversion = "7.0"
+# Specify test file paths
+testpaths = [
+    "tests",
+]
+# Default options to add when running pytest
+addopts = "-v --cov=src/my_package --cov-report=term-missing --cov-report=html"
+# Register custom markers to avoid warnings
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "api: marks tests that interact with external APIs (usually skipped)",
+]
+# Python files to consider for test discovery
+python_files = "test_*.py *_test.py"
+# Python classes to consider for test discovery
+python_classes = "Test* *Tests"
+# Python functions/methods to consider for test discovery
+python_functions = "test_* check_*"
+
+# Coverage configuration (can also be in .coveragerc)
+[tool.coverage.run]
+branch = true
+source = ["src/my_package"]
+omit = ["*/__init__.py"] # Optional: omit init files from coverage
+
+[tool.coverage.report]
+# Fail if coverage is below threshold
+# fail_under = 90
+show_missing = true
+skip_covered = true
