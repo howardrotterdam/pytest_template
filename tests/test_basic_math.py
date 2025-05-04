@@ -20,6 +20,18 @@ def test_subtract():
     """Test subtraction."""
     assert basic_math.subtract(10, 4) == 6
 
+def test_sqrt():
+    """Test square root function."""
+    assert basic_math.sqrt(4) == 2
+    assert basic_math.sqrt(9) == 3
+    assert basic_math.sqrt(0) == 0
+    assert basic_math.sqrt(2) == pytest.approx(1.414, rel=1e-3)
+
+def test_sqrt_negative():
+    """Test square root of a negative number."""
+    with pytest.raises(ValueError):
+        basic_math.sqrt(-1)
+
 # 2. Parameterization (@pytest.mark.parametrize)
 @pytest.mark.parametrize(
     "a, b, expected",
